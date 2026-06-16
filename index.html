@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taxi dans l'Oise – Compiègne, Noyon, Pierrefonds | Taxi RF</title>
+  <meta name="description" content="Taxi sur réservation dans l'Oise vers Paris, CDG, Orly et Beauvais. Départs depuis Compiègne, Noyon et Pierrefonds. Tarifs réglementés.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9A84C;
+      --black: #1A1A1A;
+      --white: #FFFFFF;
+      --gray-light: #F5F5F5;
+      --gray-text: #666666;
+      --font: 'Poppins', sans-serif;
+    }
+    body { font-family: var(--font); color: var(--black); background: var(--white); }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 1px 10px rgba(0,0,0,0.08);
+      height: 60px;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      justify-content: space-between;
+    }
+    .nav-logo img { height: 38px; width: auto; }
+    .nav-menu-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+    }
+    .nav-menu-btn span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--black);
+      border-radius: 2px;
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 60px; left: 0; right: 0;
+      background: var(--white);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      z-index: 999;
+      padding: 10px 20px 20px;
+      flex-direction: column;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      display: block;
+      padding: 14px 0;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--black);
+      text-decoration: none;
+      border-bottom: 1px solid #F0F0F0;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 100svh;
+      min-height: 600px;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 52px;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('hero-accueil.jpg');
+      background-size: cover;
+      background-position: 70% 30%;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.85) 0%,
+        rgba(0,0,0,0.40) 45%,
+        rgba(0,0,0,0.05) 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 22px;
+      width: 100%;
+    }
+    .hero-phone-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--gold);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      text-decoration: none;
+    }
+    .hero h1 {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .hero-subtitle {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.85);
+      font-weight: 400;
+      margin-bottom: 12px;
+      line-height: 1.7;
+    }
+    .hero-text {
+      font-size: 0.87rem;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+    .hero-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 28px;
+      font-family: var(--font);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.25s;
+      text-decoration: none;
+      min-width: 220px;
+    }
+    .btn-primary {
+      background: var(--black);
+      color: var(--white);
+      border: 1px solid var(--gold);
+    }
+    .btn-primary:active { background: var(--gold); color: var(--black); }
+    .btn-white {
+      background: var(--white);
+      color: var(--black);
+      border: 1px solid var(--gold);
+    }
+    .btn-white:active { background: var(--gold); color: var(--black); }
+
+    /* ── BARRE GOOGLE ── */
+    .google-bar {
+      background: var(--white);
+      border-bottom: 1px solid #EFEFEF;
+      padding: 12px 22px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+    }
+    .google-stars { color: #FBBC04; font-size: 1rem; }
+    .google-rating { font-weight: 700; color: var(--black); }
+    .google-count { color: var(--gray-text); font-size: 0.8rem; }
+    .google-label { margin-left: auto; font-size: 0.78rem; font-weight: 700; color: #4285F4; }
+
+    /* ── SECTIONS ── */
+    section { padding: 52px 22px; }
+    .section-title {
+      font-size: 1.45rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 10px;
+      line-height: 1.25;
+    }
+    .gold-bar {
+      width: 40px; height: 3px;
+      background: var(--gold);
+      margin: 0 auto 12px;
+    }
+    .section-subtitle {
+      text-align: center;
+      color: var(--gray-text);
+      font-size: 0.87rem;
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    /* ── POURQUOI ── */
+    .why { background: var(--gray-light); }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .card {
+      background: var(--white);
+      border-radius: 8px;
+      padding: 20px 14px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .card-icon { font-size: 1.7rem; margin-bottom: 10px; }
+    .card-title { font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; }
+    .card-text { font-size: 0.76rem; color: var(--gray-text); line-height: 1.55; }
+
+    /* ── DESTINATIONS ── */
+    .destinations { background: var(--white); }
+    .dest-grid { display: flex; flex-direction: column; gap: 12px; }
+    .dest-card {
+      border: 1px solid #E8E8E8;
+      border-radius: 8px;
+      padding: 18px 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .dest-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+    .dest-info { flex: 1; }
+    .dest-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 4px; }
+    .dest-text { font-size: 0.78rem; color: var(--gray-text); line-height: 1.55; margin-bottom: 8px; }
+    .dest-link { font-size: 0.78rem; font-weight: 600; color: var(--gold); text-decoration: none; }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: var(--black);
+      text-align: center;
+      padding: 52px 22px;
+    }
+    .cta-section h2 {
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .cta-section p {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+    .cta-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 28px;
+      border-radius: 4px;
+      font-family: var(--font);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      min-width: 220px;
+    }
+    .btn-cta-primary {
+      background: var(--white);
+      color: var(--black);
+      border: 1px solid var(--gold);
+    }
+    .btn-cta-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.35);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #111111;
+      padding: 36px 22px 28px;
+      color: rgba(255,255,255,0.55);
+    }
+    .footer-logo img {
+      height: 36px;
+      filter: brightness(0) invert(1);
+      opacity: 0.65;
+      margin-bottom: 14px;
+    }
+    .footer-contact {
+      font-size: 0.85rem;
+      line-height: 2;
+      margin-bottom: 20px;
+    }
+    .footer-contact a {
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      display: block;
+    }
+    .footer-social {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .social-btn {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+    .social-btn:hover { border-color: var(--gold); }
+    .footer-legal {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .footer-legal a {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.4);
+      text-decoration: none;
+    }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.28);
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR : logo gauche + hamburger droite uniquement -->
+  <nav>
+    <a class="nav-logo" href="#">
+      <img src="taxi_rf_logo_white.png" alt="Taxi RF">
+    </a>
+    <button class="nav-menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#" onclick="toggleMenu()">Accueil</a>
+    <a href="#tarifs" onclick="toggleMenu()">Tarifs & Réservation</a>
+    <a href="#contact" onclick="toggleMenu()">Contact</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <a class="hero-phone-link" href="tel:+33605717711">📞 06 05 71 77 11</a>
+      <h1>Réservez votre taxi dans l'Oise</h1>
+      <p class="hero-subtitle">Compiègne &bull; Noyon &bull; Pierrefonds &bull; Aéroports &bull; Gares &bull; Longue distance</p>
+      <p class="hero-text">Taxi RF assure vos déplacements sur réservation depuis l'Oise. Transferts vers les aéroports, gares parisiennes et longues distances. Réservation préalable obligatoire.</p>
+      <div class="hero-buttons">
+        <a class="btn btn-primary" href="tel:+33605717711">📞 Réserver maintenant</a>
+        <a class="btn btn-white" href="#tarifs">Obtenir une estimation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BARRE GOOGLE : note + étoiles seulement -->
+  <div class="google-bar">
+    <span class="google-stars" id="googleStars">★★★★★</span>
+    <span class="google-rating" id="googleRating">—</span>
+    <span class="google-count" id="googleCount"></span>
+    <span class="google-label">Google</span>
+  </div>
+
+  <!-- POURQUOI -->
+  <section class="why">
+    <div class="section-title">Pourquoi choisir Taxi RF ?</div>
+    <div class="gold-bar"></div>
+    <p class="section-subtitle">Taxi parisien sur réservation depuis l'Oise — ponctualité et tarifs réglementés.</p>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-icon">🚖</div>
+        <div class="card-title">Réservation préalable</div>
+        <p class="card-text">Réservez à l'avance et recevez une confirmation rapide.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">💶</div>
+        <div class="card-title">Tarifs réglementés</div>
+        <p class="card-text">Estimation avant réservation, tarifs taxi officiels.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">✈️</div>
+        <div class="card-title">Aéroports & Gares</div>
+        <p class="card-text">Forfaits CDG, Orly, Beauvais et gares parisiennes.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">👔</div>
+        <div class="card-title">Particuliers & Pros</div>
+        <p class="card-text">Solution adaptée à tous vos déplacements.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESTINATIONS -->
+  <section class="destinations">
+    <div class="section-title">Destinations fréquentes depuis l'Oise</div>
+    <div class="gold-bar"></div>
+    <p class="section-subtitle">Taxi RF vous emmène partout depuis Compiègne, Noyon et Pierrefonds.</p>
+    <div class="dest-grid">
+      <div class="dest-card">
+        <div class="dest-icon">✈️</div>
+        <div class="dest-info">
+          <div class="dest-title">Aéroport Charles-de-Gaulle</div>
+          <p class="dest-text">Transfert direct depuis l'Oise vers CDG. Forfait disponible.</p>
+          <a class="dest-link" href="#tarifs">Obtenir une estimation →</a>
+        </div>
+      </div>
+      <div class="dest-card">
+        <div class="dest-icon">✈️</div>
+        <div class="dest-info">
+          <div class="dest-title">Aéroport d'Orly</div>
+          <p class="dest-text">Liaison depuis l'Oise vers Orly avec prise en charge à domicile.</p>
+          <a class="dest-link" href="#tarifs">Obtenir une estimation →</a>
+        </div>
+      </div>
+      <div class="dest-card">
+        <div class="dest-icon">✈️</div>
+        <div class="dest-info">
+          <div class="dest-title">Aéroport de Beauvais</div>
+          <p class="dest-text">Transfert vers Beauvais-Tillé depuis toute l'Oise.</p>
+          <a class="dest-link" href="#tarifs">Obtenir une estimation →</a>
+        </div>
+      </div>
+      <div class="dest-card">
+        <div class="dest-icon">🗼</div>
+        <div class="dest-info">
+          <div class="dest-title">Paris</div>
+          <p class="dest-text">Toutes destinations Paris intra-muros, tarifs officiels.</p>
+          <a class="dest-link" href="#tarifs">Obtenir une estimation →</a>
+        </div>
+      </div>
+      <div class="dest-card">
+        <div class="dest-icon">🏰</div>
+        <div class="dest-info">
+          <div class="dest-title">Disneyland Paris</div>
+          <p class="dest-text">Transfert familial ou professionnel vers Disneyland.</p>
+          <a class="dest-link" href="#tarifs">Obtenir une estimation →</a>
+        </div>
+      </div>
+      <div class="dest-card">
+        <div class="dest-icon">🚉</div>
+        <div class="dest-info">
+          <div class="dest-title">Gares parisiennes</div>
+          <p class="dest-text">Gare du Nord, Gare de l'Est, Montparnasse et plus.</p>
+          <a class="dest-link" href="#tarifs">Obtenir une estimation →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section" id="tarifs">
+    <h2>Besoin d'un taxi ?</h2>
+    <p>Taxi RF intervient sur réservation depuis l'Oise. Réservez à l'avance et voyagez sereinement.</p>
+    <div class="cta-buttons">
+      <a class="btn-cta btn-cta-primary" href="tel:+33605717711">📞 Réserver maintenant</a>
+      <a class="btn-cta btn-cta-outline" href="#contact">Nous contacter</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="contact">
+    <div class="footer-logo">
+      <img src="taxi_rf_logo_white.png" alt="Taxi RF">
+    </div>
+    <div class="footer-contact">
+      <a href="tel:+33605717711">06 05 71 77 11</a>
+      <a href="mailto:contact@taxirf.com">contact@taxirf.com</a>
+    </div>
+    <div class="footer-social">
+      <a class="social-btn" href="https://www.facebook.com/taxirf.fouad" target="_blank" aria-label="Facebook">📘</a>
+      <a class="social-btn" href="https://www.instagram.com/taxi_rf_fouad_" target="_blank" aria-label="Instagram">📸</a>
+      <a class="social-btn" href="https://www.google.com/maps/place/Taxi+RF/@49.4121941,2.4273078" target="_blank" aria-label="Google">⭐</a>
+    </div>
+    <div class="footer-legal">
+      <a href="#">Mentions légales</a>
+      <a href="#">Politique de confidentialité</a>
+      <a href="#">CGV</a>
+    </div>
+    <div class="footer-copy">© 2026 Taxi RF — Tous droits réservés</div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('nav') && !e.target.closest('#mobileMenu')) {
+        document.getElementById('mobileMenu').classList.remove('open');
+      }
+    });
+
+    // Barre Google : note + étoiles uniquement
+    const PLACE_ID = 'ChIJG_s4O4jN50cRV2OmTTBwt9c';
+    const API_KEY = 'AIzaSyBPgCsTjcx84bFd7WvD4ogy3i7QnNutqtA';
+
+    window.initPlaces = function() {
+      const svc = new google.maps.places.PlacesService(document.createElement('div'));
+      svc.getDetails({ placeId: PLACE_ID, fields: ['rating','user_ratings_total'] }, function(place, status) {
+        if (status === google.maps.places.PlacesServiceStatus.OK && place.rating) {
+          document.getElementById('googleRating').textContent = place.rating.toFixed(1);
+          document.getElementById('googleCount').textContent = place.user_ratings_total + ' avis';
+        }
+      });
+    };
+
+    const s = document.createElement('script');
+    s.src = 'https://maps.googleapis.com/maps/api/js?key=' + API_KEY + '&libraries=places&callback=initPlaces';
+    document.head.appendChild(s);
+  </script>
+
+</body>
+</html>

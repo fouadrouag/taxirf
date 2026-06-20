@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tarifs Taxi depuis l'Oise – Estimation & Réservation en ligne | Taxi RF</title>
+  <meta name="description" content="Calculez le prix de votre taxi depuis Compiègne, Noyon ou Pierrefonds vers Paris, CDG, Orly et Beauvais. Réservez en ligne, tarifs officiels réglementés.">
+  <link rel="canonical" href="https://taxirf.com/tarifs-taxi-rf.html">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Tarifs Taxi depuis l'Oise – Estimation & Réservation | Taxi RF">
+  <meta property="og:description" content="Calculez le prix de votre taxi depuis Compiègne, Noyon ou Pierrefonds.">
+  <meta property="og:url" content="https://taxirf.com/tarifs-taxi-rf.html">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://taxirf.com/hero-accueil.jpg">
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TaxiService",
+    "name": "Taxi RF",
+    "url": "https://taxirf.com/tarifs-taxi-rf.html",
+    "telephone": "+33605717711",
+    "priceRange": "Tarifs réglementés",
+    "areaServed": ["Compiègne","Noyon","Pierrefonds","Oise","Paris","CDG","Orly","Beauvais"]
+  }
+  </script>
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Comment réserver mon taxi ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Réservez en ligne via notre formulaire ou appelez le 06 05 71 77 11. Par téléphone, un message vous demandera de confirmer vos coordonnées et les détails de votre trajet par SMS."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Combien de temps à l'avance dois-je réserver ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Nous recommandons de réserver au minimum 24 heures à l'avance, notamment pour les transferts aéroport. Pour les trajets urgents, contactez-nous directement au 06 05 71 77 11."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Comment se passe la prise en charge à l'aéroport ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Votre chauffeur vous attend à la sortie du terminal d'arrivée avec une pancarte à votre nom. Le vol est suivi en temps réel — en cas de retard, le chauffeur adapte son heure d'arrivée automatiquement. Aucun supplément n'est facturé pour les retards de vol."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Quelle est la politique d'annulation ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Annulation gratuite jusqu'à 24h avant le départ. Entre 4h et 24h : remboursement de 20% si l'acompte dépasse 50€, 10% si inférieur à 50€. Moins de 4h : acompte perdu."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9A84C;
+      --black: #1A1A1A;
+      --white: #FFFFFF;
+      --gray-light: #F5F5F5;
+      --gray-text: #666666;
+      --font: 'Poppins', sans-serif;
+    }
+    body { font-family: var(--font); color: var(--black); background: var(--white); }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(255,255,255,0.97); backdrop-filter: blur(8px);
+      box-shadow: 0 1px 10px rgba(0,0,0,0.08);
+      height: 68px; display: flex; align-items: center;
+      padding: 0 40px; justify-content: space-between;
+    }
+    .nav-logo img { height: 42px; width: auto; }
+    .nav-links { display: none; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 0.88rem; font-weight: 500; color: var(--black); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+    .nav-right { display: none; align-items: center; gap: 16px; }
+    .nav-flags { display: flex; gap: 6px; }
+    .nav-flags span { font-size: 1.3rem; cursor: pointer; opacity: 0.7; }
+    .nav-phone { font-size: 0.88rem; font-weight: 600; color: var(--black); text-decoration: none; }
+    .nav-mobile-right { display: flex; align-items: center; gap: 10px; }
+    .nav-mobile-flags { display: flex; gap: 4px; }
+    .nav-mobile-flags span { font-size: 1.2rem; cursor: pointer; }
+    .nav-menu-btn { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 5px; padding: 4px; }
+    .nav-menu-btn span { display: block; width: 22px; height: 2px; background: var(--black); border-radius: 2px; }
+    .mobile-menu {
+      display: none; position: fixed; top: 50px; left: 0; right: 0;
+      background: var(--white); box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      z-index: 999; padding: 10px 20px 20px; flex-direction: column;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { display: block; padding: 14px 0; font-size: 1rem; font-weight: 500; color: var(--black); text-decoration: none; border-bottom: 1px solid #F0F0F0; }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a.active { color: var(--gold); }
+    @media (min-width: 768px) {
+      nav { position: relative; }
+      .nav-links { display: flex; }
+      .nav-right { display: flex; }
+      .nav-mobile-right { display: none; }
+    }
+    @media (max-width: 767px) {
+      nav { height: 50px; padding: 0 16px; }
+      .nav-logo img { height: 32px; }
+      .mobile-menu { top: 50px; }
+    }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      background: var(--black);
+      padding: 60px 22px 40px;
+      text-align: center;
+    }
+    .page-header h1 { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 700; color: var(--white); margin-bottom: 10px; }
+    .page-header p { font-size: 0.92rem; color: rgba(255,255,255,0.7); max-width: 500px; margin: 0 auto; line-height: 1.6; }
+    .gold-bar { width: 40px; height: 3px; background: var(--gold); margin: 14px auto 0; }
+
+    /* ── SECTIONS ── */
+    section { padding: 52px 22px; }
+    .section-inner { max-width: 800px; margin: 0 auto; }
+    .section-title { font-size: 1.35rem; font-weight: 700; margin-bottom: 8px; }
+    .section-bar { width: 32px; height: 3px; background: var(--gold); margin-bottom: 24px; }
+
+    /* ── CALCULATEUR ── */
+    .calculateur { background: var(--gray-light); }
+    .calc-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-size: 0.82rem; font-weight: 600; color: var(--black); }
+    .form-group input, .form-group select {
+      padding: 12px 14px; border: 1px solid #E0E0E0;
+      border-radius: 4px; font-family: var(--font); font-size: 0.88rem;
+      color: var(--black); background: var(--white);
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus, .form-group select:focus {
+      outline: none; border-color: var(--gold);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .btn-estimer {
+      background: var(--black); color: var(--white);
+      border: 1px solid var(--gold); padding: 14px 32px;
+      font-family: var(--font); font-size: 0.92rem; font-weight: 600;
+      border-radius: 4px; cursor: pointer; transition: all 0.25s;
+      margin-top: 8px; align-self: flex-start;
+    }
+    .btn-estimer:hover { background: var(--gold); color: var(--black); }
+
+    /* ── ESTIMATION RÉSULTAT ── */
+    .estimation-result {
+      display: none;
+      background: var(--white);
+      border: 1px solid var(--gold);
+      border-radius: 8px;
+      padding: 24px;
+      margin-top: 24px;
+    }
+    .estimation-result.visible { display: block; }
+    .est-title { font-size: 1rem; font-weight: 700; margin-bottom: 16px; color: var(--black); }
+    .est-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #F0F0F0; font-size: 0.85rem; }
+    .est-row:last-of-type { border-bottom: none; }
+    .est-label { color: var(--gray-text); }
+    .est-value { font-weight: 600; color: var(--black); }
+    .est-price {
+      background: var(--gray-light); border-radius: 6px;
+      padding: 16px; margin: 16px 0; text-align: center;
+    }
+    .est-fourchette { font-size: 1.5rem; font-weight: 700; color: var(--black); }
+    .est-fourchette span { color: var(--gold); }
+    .est-acompte { font-size: 0.85rem; color: var(--gray-text); margin-top: 6px; }
+    .est-acompte strong { color: var(--black); }
+    .est-mention { font-size: 0.75rem; color: var(--gray-text); font-style: italic; margin-top: 12px; line-height: 1.5; }
+    .btn-reserver {
+      display: flex; align-items: center; justify-content: center;
+      width: 100%; padding: 14px; margin-top: 16px;
+      background: var(--black); color: var(--white);
+      border: 1px solid var(--gold); border-radius: 4px;
+      font-family: var(--font); font-size: 0.92rem; font-weight: 600;
+      cursor: pointer; transition: all 0.25s; text-decoration: none;
+    }
+    .btn-reserver:hover { background: var(--gold); color: var(--black); }
+
+    /* ── FORMULAIRE RÉSERVATION ── */
+    .reservation { background: var(--white); }
+    .resa-form { display: flex; flex-direction: column; gap: 16px; }
+    .resa-prefilled {
+      background: var(--gray-light); border-left: 3px solid var(--gold);
+      padding: 16px; border-radius: 4px; margin-bottom: 8px;
+      font-size: 0.82rem; color: var(--gray-text);
+    }
+    .resa-prefilled strong { color: var(--black); display: block; margin-bottom: 4px; font-size: 0.85rem; }
+    .resa-prefilled-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+    .resa-prefilled-item { font-size: 0.8rem; }
+    .resa-prefilled-item span { font-weight: 600; color: var(--black); }
+    .resa-price-choice { display: flex; flex-direction: column; gap: 10px; margin: 8px 0; }
+    .price-option {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 16px; border: 1px solid #E0E0E0;
+      border-radius: 4px; cursor: pointer; transition: border-color 0.2s;
+    }
+    .price-option:hover, .price-option.selected { border-color: var(--gold); }
+    .price-option input { accent-color: var(--gold); width: 18px; height: 18px; }
+    .price-option-label { font-size: 0.88rem; font-weight: 600; }
+    .price-option-sub { font-size: 0.75rem; color: var(--gray-text); }
+    .btn-payer {
+      display: flex; align-items: center; justify-content: center;
+      width: 100%; padding: 16px;
+      background: var(--black); color: var(--white);
+      border: 1px solid var(--gold); border-radius: 4px;
+      font-family: var(--font); font-size: 0.95rem; font-weight: 700;
+      cursor: pointer; transition: all 0.25s; margin-top: 8px;
+    }
+    .btn-payer:hover { background: var(--gold); color: var(--black); }
+    .resa-mention { font-size: 0.75rem; color: var(--gray-text); text-align: center; margin-top: 12px; line-height: 1.5; }
+
+    /* ── TARIFS RÉGLEMENTÉS ── */
+    .tarifs-section { background: var(--gray-light); }
+    .tarifs-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+    .tarifs-table th {
+      background: var(--black); color: var(--white);
+      padding: 12px 14px; text-align: left; font-size: 0.82rem; font-weight: 600;
+    }
+    .tarifs-table td { padding: 12px 14px; border-bottom: 1px solid #E8E8E8; font-size: 0.82rem; }
+    .tarifs-table tr:last-child td { border-bottom: none; }
+    .tarifs-table tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
+    .tarif-badge {
+      display: inline-block; padding: 2px 10px;
+      border-radius: 12px; font-size: 0.75rem; font-weight: 700;
+    }
+    .tarif-a { background: #E8F5E9; color: #2E7D32; }
+    .tarif-b { background: #FFF3E0; color: #E65100; }
+    .tarif-c { background: #FCE4EC; color: #C62828; }
+
+    /* ── INFORMATIONS TARIFAIRES ── */
+    .info-tarifaires { background: var(--white); }
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .info-card {
+      border: 1px solid #E8E8E8; border-radius: 6px; padding: 20px;
+    }
+    .info-card-title { font-size: 0.9rem; font-weight: 700; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid var(--gold); }
+    .info-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .info-list li { font-size: 0.82rem; color: var(--gray-text); display: flex; justify-content: space-between; }
+    .info-list li strong { color: var(--black); }
+
+    /* ── FAQ ── */
+    .faq-section { background: var(--gray-light); }
+    .faq-list { display: flex; flex-direction: column; gap: 0; }
+    .faq-item { border-bottom: 1px solid #E0E0E0; }
+    .faq-question {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 0; cursor: pointer; font-size: 0.92rem; font-weight: 600;
+      color: var(--black); user-select: none;
+    }
+    .faq-question::after { content: '+'; font-size: 1.4rem; color: var(--gold); font-weight: 300; flex-shrink: 0; margin-left: 12px; }
+    .faq-item.open .faq-question::after { content: '−'; }
+    .faq-answer { display: none; font-size: 0.85rem; color: var(--gray-text); line-height: 1.7; padding-bottom: 16px; }
+    .faq-item.open .faq-answer { display: block; }
+
+    /* ── FOOTER ── */
+    footer { background: #111111; padding: 36px 22px 28px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 32px; margin-bottom: 24px; }
+    .footer-left { display: flex; flex-direction: column; gap: 0; }
+    .footer-right { display: flex; flex-direction: column; gap: 10px; text-align: right; }
+    .footer-logo img { height: 44px; width: auto; margin-bottom: 12px; opacity: 0.9; }
+    .footer-contact { font-size: 0.85rem; line-height: 2; margin-bottom: 12px; }
+    .footer-contact a { color: rgba(255,255,255,0.55); text-decoration: none; display: block; }
+    .footer-contact a:hover { color: var(--gold); }
+    .footer-nav { display: flex; flex-direction: column; gap: 8px; }
+    .footer-nav a { font-size: 0.88rem; color: rgba(255,255,255,0.55); text-decoration: none; }
+    .footer-nav a:hover, .footer-nav a.active { color: var(--gold); }
+    .footer-social { display: flex; gap: 10px; }
+    .social-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; text-decoration: none; }
+    .social-btn svg { width: 16px; height: 16px; fill: rgba(255,255,255,0.6); }
+    .social-btn:hover { border-color: var(--gold); }
+    .social-btn:hover svg { fill: var(--gold); }
+    .footer-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.07); }
+    .footer-legal { display: flex; flex-wrap: wrap; gap: 14px; }
+    .footer-legal a { font-size: 0.78rem; color: rgba(255,255,255,0.4); text-decoration: none; }
+    .footer-legal a:hover { color: var(--gold); }
+    .footer-copy { font-size: 0.75rem; color: rgba(255,255,255,0.28); }
+
+    @media (max-width: 767px) {
+      .form-row { grid-template-columns: 1fr; }
+      .info-grid { grid-template-columns: 1fr; }
+      .resa-prefilled-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; gap: 20px; }
+      .footer-right { text-align: left; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a class="nav-logo" href="index.html">
+      <img src="logo.png" alt="Taxi RF - Service de taxi">
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="tarifs-taxi-rf.html" class="active">Tarifs & Réservation</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="nav-flags">
+        <span title="Français">🇫🇷</span>
+        <span title="English">🇬🇧</span>
+      </div>
+      <a class="nav-phone" href="tel:+33605717711">06 05 71 77 11</a>
+    </div>
+    <div class="nav-mobile-right">
+      <div class="nav-mobile-flags">
+        <span title="Français">🇫🇷</span>
+        <span title="English">🇬🇧</span>
+      </div>
+      <button class="nav-menu-btn" onclick="toggleMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" onclick="toggleMenu()">Accueil</a>
+    <a href="tarifs-taxi-rf.html" class="active" onclick="toggleMenu()">Tarifs & Réservation</a>
+    <a href="contact.html" onclick="toggleMenu()">Contact</a>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <h1>Tarifs & Réservation — Taxi depuis l'Oise</h1>
+    <p>Calculez votre trajet, obtenez une estimation et réservez en ligne en quelques minutes.</p>
+    <div class="gold-bar"></div>
+  </div>
+
+  <!-- CALCULATEUR -->
+  <section class="calculateur" id="calculateur">
+    <div class="section-inner">
+      <h2 class="section-title">Calculez votre trajet</h2>
+      <div class="section-bar"></div>
+      <div class="calc-form">
+        <div class="form-group">
+          <label for="depart">Adresse de départ</label>
+          <input type="text" id="depart" placeholder="Ex : 12 rue de la Paix, Compiègne" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="arrivee">Adresse d'arrivée</label>
+          <input type="text" id="arrivee" placeholder="Ex : Aéroport Charles-de-Gaulle, Terminal 2" autocomplete="off">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="date">Date du trajet</label>
+            <input type="date" id="date">
+          </div>
+          <div class="form-group">
+            <label for="heure">Heure de départ</label>
+            <input type="time" id="heure">
+          </div>
+        </div>
+        <button class="btn-estimer" onclick="calculerEstimation()">Estimer mon trajet</button>
+      </div>
+
+      <!-- RÉSULTAT ESTIMATION -->
+      <div class="estimation-result" id="estimationResult">
+        <div class="est-title">Estimation de votre trajet</div>
+        <div class="est-row"><span class="est-label">Départ</span><span class="est-value" id="resDepart">—</span></div>
+        <div class="est-row"><span class="est-label">Arrivée</span><span class="est-value" id="resArrivee">—</span></div>
+        <div class="est-row"><span class="est-label">Distance estimée</span><span class="est-value" id="resDistance">—</span></div>
+        <div class="est-row"><span class="est-label">Durée estimée</span><span class="est-value" id="resDuree">—</span></div>
+        <div class="est-row"><span class="est-label">Tarif appliqué</span><span class="est-value" id="resTarif">—</span></div>
+        <div class="est-price">
+          <div class="est-fourchette" id="resFourchette">— €&nbsp;→&nbsp;<span>— €</span></div>
+          <div class="est-acompte">Acompte à régler en ligne : <strong id="resAcompte">— €</strong></div>
+        </div>
+        <p class="est-mention">Les tarifs appliqués sont les tarifs officiels des taxis parisiens. Le montant final affiché sur le compteur homologué fait foi. Le solde est réglé directement au chauffeur en fin de trajet.</p>
+        <button class="btn-reserver" onclick="scrollToReservation()">Réserver et payer l'acompte →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMULAIRE RÉSERVATION -->
+  <section class="reservation" id="reservation">
+    <div class="section-inner">
+      <h2 class="section-title">Réserver votre taxi</h2>
+      <div class="section-bar"></div>
+
+      <!-- Récap pré-rempli -->
+      <div class="resa-prefilled" id="resaPrefilled" style="display:none;">
+        <strong>Récapitulatif de votre trajet</strong>
+        <div class="resa-prefilled-grid">
+          <div class="resa-prefilled-item">Départ : <span id="rfDepart">—</span></div>
+          <div class="resa-prefilled-item">Arrivée : <span id="rfArrivee">—</span></div>
+          <div class="resa-prefilled-item">Date : <span id="rfDate">—</span></div>
+          <div class="resa-prefilled-item">Heure : <span id="rfHeure">—</span></div>
+          <div class="resa-prefilled-item">Estimation : <span id="rfEstimation">—</span></div>
+          <div class="resa-prefilled-item">Acompte : <span id="rfAcompte">—</span></div>
+        </div>
+      </div>
+
+      <div class="resa-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" placeholder="Votre nom">
+          </div>
+          <div class="form-group">
+            <label for="prenom">Prénom</label>
+            <input type="text" id="prenom" placeholder="Votre prénom">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="tel">Téléphone</label>
+            <input type="tel" id="tel" placeholder="06 XX XX XX XX">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="votre@email.com">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="passagers">Nombre de passagers</label>
+            <select id="passagers">
+              <option value="1">1 passager</option>
+              <option value="2">2 passagers</option>
+              <option value="3">3 passagers</option>
+              <option value="4">4 passagers</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="bagages">Bagages</label>
+            <select id="bagages">
+              <option value="non">Sans bagage</option>
+              <option value="cabine">Bagage cabine</option>
+              <option value="soute">Bagage soute</option>
+              <option value="multiple">Plusieurs bagages</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="message">Message (optionnel)</label>
+          <input type="text" id="message" placeholder="Informations complémentaires...">
+        </div>
+
+        <div class="resa-price-choice" id="priceChoice" style="display:none;">
+          <div class="price-option selected" onclick="selectPayment('acompte', this)">
+            <input type="radio" name="paiement" value="acompte" checked>
+            <div>
+              <div class="price-option-label">Payer l'acompte — <span id="montantAcompte">— €</span></div>
+              <div class="price-option-sub">Solde réglé au chauffeur selon le compteur</div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-payer" onclick="procederPaiement()">Confirmer et payer l'acompte</button>
+        <p class="resa-mention">Paiement sécurisé par Stripe. Un email de confirmation vous sera envoyé après validation.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TARIFS RÉGLEMENTÉS -->
+  <section class="tarifs-section" id="tarifs">
+    <div class="section-inner">
+      <h2 class="section-title">Tarifs réglementés</h2>
+      <div class="section-bar"></div>
+      <table class="tarifs-table">
+        <thead>
+          <tr>
+            <th>Tarif</th>
+            <th>Par km</th>
+            <th>Par heure</th>
+            <th>Application</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="tarif-badge tarif-a">Tarif A</span></td>
+            <td>1,30 €/km</td>
+            <td>39,55 €/h</td>
+            <td>Paris — lundi au samedi, 10h à 17h</td>
+          </tr>
+          <tr>
+            <td><span class="tarif-badge tarif-b">Tarif B</span></td>
+            <td>1,66 €/km</td>
+            <td>52,56 €/h</td>
+            <td>Paris — lundi-sam 17h→10h / dimanche 7h-24h / jours fériés / Zone suburbaine 7h-19h</td>
+          </tr>
+          <tr>
+            <td><span class="tarif-badge tarif-c">Tarif C</span></td>
+            <td>1,76 €/km</td>
+            <td>43,15 €/h</td>
+            <td>Oise et au-delà de la zone suburbaine (toujours) / Zone suburbaine 19h-7h + dimanche + fériés</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.78rem; color:var(--gray-text); font-style:italic;">Lorsque le véhicule roule à moins de 30 km/h, le taux horaire s'applique à la place du tarif kilométrique.</p>
+    </div>
+  </section>
+
+  <!-- INFORMATIONS TARIFAIRES -->
+  <section class="info-tarifaires" id="info">
+    <div class="section-inner">
+      <h2 class="section-title">Informations tarifaires</h2>
+      <div class="section-bar"></div>
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="info-card-title">Suppléments</div>
+          <ul class="info-list">
+            <li><span>Prise en charge</span><strong>3,00 €</strong></li>
+            <li><span>Réservation à l'avance</span><strong>7,00 €</strong></li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <div class="info-card-title">Forfaits aéroports — Paris intra-muros</div>
+          <ul class="info-list">
+            <li><span>CDG — Rive Droite</span><strong>56,00 €</strong></li>
+            <li><span>CDG — Rive Gauche</span><strong>65,00 €</strong></li>
+            <li><span>Orly — Rive Droite</span><strong>45,00 €</strong></li>
+            <li><span>Orly — Rive Gauche</span><strong>36,00 €</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section" id="faq">
+    <div class="section-inner">
+      <h2 class="section-title">Questions fréquentes</h2>
+      <div class="section-bar"></div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">Comment réserver mon taxi ?</div>
+          <div class="faq-answer">Réservez en ligne via notre formulaire ou appelez le 06 05 71 77 11. Par téléphone, un message vous demandera de confirmer vos coordonnées et les détails de votre trajet par SMS.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">Combien de temps à l'avance dois-je réserver ?</div>
+          <div class="faq-answer">Nous recommandons de réserver au minimum 24 heures à l'avance, notamment pour les transferts aéroport. Pour les trajets urgents, contactez-nous directement au 06 05 71 77 11 et nous ferons notre possible pour vous accommoder.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">Comment je reçois la confirmation ?</div>
+          <div class="faq-answer">Après votre réservation en ligne, vous recevez un email de confirmation avec tous les détails de votre trajet — date, heure, adresse de prise en charge et montant de l'acompte réglé. Pour toute réservation par téléphone, la confirmation est envoyée par SMS.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">Comment se passe la prise en charge à l'aéroport ?</div>
+          <div class="faq-answer">Votre chauffeur vous attend à la sortie du terminal d'arrivée avec une pancarte à votre nom. Le vol est suivi en temps réel — en cas de retard, le chauffeur adapte son heure d'arrivée automatiquement. Aucun supplément n'est facturé pour les retards de vol.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">Comment est calculé le prix de ma course ?</div>
+          <div class="faq-answer">Le prix est calculé selon les tarifs officiels des taxis parisiens (Tarif A, B ou C) en fonction de la zone traversée et de l'heure de départ. Notre calculateur en ligne vous donne une estimation avant réservation. Le montant final affiché sur le compteur homologué fait foi.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">Quels modes de paiement sont acceptés ?</div>
+          <div class="faq-answer">Le paiement s'effectue en ligne par carte bancaire lors de la réservation. Un acompte de 30% basé sur l'estimation haute vous est demandé pour confirmer votre réservation. Le solde est réglé directement au chauffeur en fin de trajet selon le compteur homologué.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">Combien de bagages puis-je emmener ?</div>
+          <div class="faq-answer">Le véhicule peut accueillir jusqu'à 4 passagers avec leurs bagages de voyage. Pour les groupes ou les volumes importants de bagages, contactez-nous au 06 05 71 77 11 avant de réserver.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">Quelle est la politique d'annulation ?</div>
+          <div class="faq-answer">Annulation gratuite jusqu'à 24h avant le départ — acompte intégralement remboursé. Entre 4h et 24h avant le départ : remboursement de 20% si l'acompte dépasse 50€, 10% si inférieur à 50€. Moins de 4h avant le départ : acompte perdu. Un véhicule et un chauffeur étant réservés exclusivement pour votre trajet, d'autres courses ont été refusées pour honorer votre réservation.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-left">
+        <div class="footer-logo"><img src="logo.png" alt="Taxi RF - Service de taxi"></div>
+        <div class="footer-contact">
+          <a href="tel:+33605717711">06 05 71 77 11</a>
+          <a href="mailto:contact@taxirf.com">contact@taxirf.com</a>
+        </div>
+        <div class="footer-social">
+          <a class="social-btn" href="https://www.facebook.com/taxirf.fouad" target="_blank" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a class="social-btn" href="https://www.instagram.com/taxi_rf_fouad_" target="_blank" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <a class="social-btn" href="https://www.google.com/maps/place/Taxi+RF/@49.4121941,2.4273078" target="_blank" aria-label="Google">
+            <svg viewBox="0 0 24 24"><path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-right">
+        <div class="footer-nav">
+          <a href="index.html">Accueil</a>
+          <a href="tarifs-taxi-rf.html" class="active">Tarifs & Réservation</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-legal">
+        <a href="mentions-legales.html">Mentions légales</a>
+        <a href="politique-confidentialite.html">Politique de confidentialité</a>
+        <a href="cgv.html">CGV</a>
+      </div>
+      <div class="footer-copy">© 2026 Taxi RF — Tous droits réservés</div>
+    </div>
+  </footer>
+
+  <!-- GOOGLE MAPS API -->
+  <script>
+    const API_KEY = 'AIzaSyBPgCsTjcx84bFd7WvD4ogy3i7QnNutqtA';
+    let estimationData = {};
+
+    // Menu
+    function toggleMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('nav') && !e.target.closest('#mobileMenu')) {
+        document.getElementById('mobileMenu').classList.remove('open');
+      }
+    });
+
+    // FAQ
+    function toggleFaq(el) {
+      el.parentElement.classList.toggle('open');
+    }
+
+    // Scroll vers réservation
+    function scrollToReservation() {
+      document.getElementById('reservation').scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('resaPrefilled').style.display = 'block';
+      document.getElementById('priceChoice').style.display = 'flex';
+      // Pré-remplir récap
+      document.getElementById('rfDepart').textContent = estimationData.depart || '—';
+      document.getElementById('rfArrivee').textContent = estimationData.arrivee || '—';
+      document.getElementById('rfDate').textContent = estimationData.date || '—';
+      document.getElementById('rfHeure').textContent = estimationData.heure || '—';
+      document.getElementById('rfEstimation').textContent = estimationData.fourchette || '—';
+      document.getElementById('rfAcompte').textContent = estimationData.acompte || '—';
+      document.getElementById('montantAcompte').textContent = estimationData.acompte || '—';
+    }
+
+    function selectPayment(type, el) {
+      document.querySelectorAll('.price-option').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+
+    // Déterminer tarif selon heure et zone
+    function getTarif(heure, zone, jour) {
+      const h = parseInt(heure.split(':')[0]);
+      const isWeekend = jour === 0 || jour === 6; // 0=dimanche, 6=samedi
+      const isSunday = jour === 0;
+
+      if (zone === 'oise' || zone === 'beyond') return 'C';
+
+      if (zone === 'suburban') {
+        if (isSunday) return 'C';
+        if (h >= 7 && h < 19) return 'B';
+        return 'C';
+      }
+
+      if (zone === 'paris') {
+        if (isSunday && h >= 0 && h < 7) return 'C';
+        if (isSunday) return 'B';
+        if (h >= 10 && h < 17) return 'A';
+        return 'B';
+      }
+      return 'C';
+    }
+
+    // Calculer estimation
+    function calculerEstimation() {
+      const depart = document.getElementById('depart').value.trim();
+      const arrivee = document.getElementById('arrivee').value.trim();
+      const date = document.getElementById('date').value;
+      const heure = document.getElementById('heure').value;
+
+      if (!depart || !arrivee || !date || !heure) {
+        alert('Veuillez remplir tous les champs.');
+        return;
+      }
+
+      const btn = document.querySelector('.btn-estimer');
+      btn.textContent = 'Calcul en cours...';
+      btn.disabled = true;
+
+      const service = new google.maps.DistanceMatrixService();
+
+      // Appel 1 : sans trafic (scénario bas)
+      service.getDistanceMatrix({
+        origins: [depart],
+        destinations: [arrivee],
+        travelMode: google.maps.TravelMode.DRIVING,
+      }, function(responseFluide, statusFluide) {
+
+        // Appel 2 : avec trafic pessimiste (scénario haut)
+        service.getDistanceMatrix({
+          origins: [depart],
+          destinations: [arrivee],
+          travelMode: google.maps.TravelMode.DRIVING,
+          drivingOptions: {
+            departureTime: new Date(date + 'T' + heure),
+            trafficModel: google.maps.TrafficModel.PESSIMISTIC
+          }
+        }, function(responseCharge, statusCharge) {
+          btn.textContent = 'Estimer mon trajet';
+          btn.disabled = false;
+
+          if (statusFluide !== 'OK' || responseFluide.rows[0].elements[0].status !== 'OK') {
+            alert('Impossible de calculer ce trajet. Vérifiez les adresses.');
+            return;
+          }
+
+          const elFluide = responseFluide.rows[0].elements[0];
+          const elCharge = (statusCharge === 'OK' && responseCharge.rows[0].elements[0].status === 'OK')
+            ? responseCharge.rows[0].elements[0]
+            : elFluide;
+
+          const distanceKm = elFluide.distance.value / 1000;
+          const dureeFluideH = elFluide.duration.value / 3600;
+          const dureeChargeH = elCharge.duration.value / 3600;
+
+          // Vitesses moyennes
+          const vitesseFluide = distanceKm / dureeFluideH;
+          const vitesseCharge = distanceKm / dureeChargeH;
+
+          // Tarifs depuis l'Oise = Tarif C
+          const tarifKm = 1.76;
+          const tarifH = 43.15;
+          const pec = 3;
+          const resa = 7;
+
+          // SCÉNARIO BAS : trafic fluide
+          // Si vitesse > 30 km/h → compteur au km
+          // Si vitesse < 30 km/h → compteur à l'heure
+          let prixBas;
+          if (vitesseFluide >= 30) {
+            prixBas = pec + resa + (distanceKm * tarifKm);
+          } else {
+            prixBas = pec + resa + (dureeFluideH * tarifH);
+          }
+
+          // SCÉNARIO HAUT : trafic chargé
+          // Temps supplémentaire dû aux embouteillages = temps < 30 km/h
+          const tempsEmboH = Math.max(0, dureeChargeH - dureeFluideH);
+          let prixHaut;
+          if (vitesseCharge >= 30) {
+            // Assez rapide → tout au km
+            prixHaut = pec + resa + (distanceKm * tarifKm);
+          } else {
+            // Partie fluide au km + partie embouteillages à l'heure
+            const proportionFluide = dureeFluideH / dureeChargeH;
+            const kmFluide = distanceKm * proportionFluide;
+            const kmEmbo = distanceKm * (1 - proportionFluide);
+            prixHaut = pec + resa + (kmFluide * tarifKm) + (tempsEmboH * tarifH);
+          }
+
+          prixBas = Math.round(prixBas);
+          prixHaut = Math.round(Math.max(prixHaut, prixBas + 3));
+          const acompte = Math.round(prixHaut * 0.30);
+          const tarifLabel = 'Tarif C (depuis l\'Oise)';
+
+        // Stocker données
+        estimationData = {
+          depart: depart,
+          arrivee: arrivee,
+          date: date,
+          heure: heure,
+          fourchette: prixBas + '€ → ' + prixHaut + '€',
+          acompte: acompte + '€'
+        };
+
+        // Afficher résultat
+        document.getElementById('resDepart').textContent = depart;
+        document.getElementById('resArrivee').textContent = arrivee;
+        document.getElementById('resDistance').textContent = elFluide.distance.text;
+        document.getElementById('resDuree').textContent = elFluide.duration.text + (tempsEmboH > 0 ? ' → ' + elCharge.duration.text + ' (avec trafic)' : '');
+        document.getElementById('resTarif').textContent = tarifLabel;
+        document.getElementById('resFourchette').innerHTML = prixBas + '€ &nbsp;→&nbsp; <span>' + prixHaut + '€</span>';
+        document.getElementById('resAcompte').textContent = acompte + '€';
+
+        const result = document.getElementById('estimationResult');
+        result.classList.add('visible');
+        result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }); // fin appel trafic chargé
+      }); // fin appel fluide
+    }
+
+    function procederPaiement() {
+      const nom = document.getElementById('nom').value.trim();
+      const prenom = document.getElementById('prenom').value.trim();
+      const tel = document.getElementById('tel').value.trim();
+      const email = document.getElementById('email').value.trim();
+
+      if (!nom || !prenom || !tel || !email) {
+        alert('Veuillez remplir tous les champs obligatoires.');
+        return;
+      }
+      // Stripe sera intégré ici
+      alert('Paiement Stripe à intégrer. Réservation enregistrée pour ' + prenom + ' ' + nom);
+    }
+
+    // Charger Google Maps API
+    function initAutocomplete() {
+      const departInput = document.getElementById('depart');
+      const arriveeInput = document.getElementById('arrivee');
+      const autocompleteDepart = new google.maps.places.Autocomplete(departInput, { componentRestrictions: { country: 'fr' } });
+      const autocompleteArrivee = new google.maps.places.Autocomplete(arriveeInput, { componentRestrictions: { country: 'fr' } });
+    }
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPgCsTjcx84bFd7WvD4ogy3i7QnNutqtA&libraries=places&callback=initAutocomplete" async defer></script>
+
+</body>
+</html>

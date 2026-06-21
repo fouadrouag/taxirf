@@ -1,3 +1,4 @@
+
 export default async function handler(req, res) {
   const apiKey = process.env.GOOGLE_PLACES_API_KEY;
 
@@ -14,9 +15,15 @@ export default async function handler(req, res) {
         'X-Goog-FieldMask': 'places.id,places.displayName,places.rating,places.userRatingCount,places.reviews,places.googleMapsUri'
       },
       body: JSON.stringify({
-        textQuery: 'Taxi RF, 75 rue Rosa Bonheur, 60170 Ribécourt-Dreslincourt, France',
+        textQuery: 'Taxi RF Fouad Ribécourt-Dreslincourt',
         languageCode: 'fr',
-        regionCode: 'FR'
+        regionCode: 'FR',
+        locationBias: {
+          circle: {
+            center: { latitude: 49.4121941, longitude: 2.4273078 },
+            radius: 500.0
+          }
+        }
       })
     });
 
@@ -26,13 +33,16 @@ export default async function handler(req, res) {
       return res.status(404).json({ error: 'Place not found' });
     }
 
-    const place = data.places[0];
+    // Chercher la fiche "Taxi RF" spécifiquement
+    const place = data.places.find(p => 
+      p.displayName?.text?.toLowerCase().includes('taxi rf')
+    ) || data.places[0];
 
     return res.status(200).json({
       name: place.displayName?.text || 'Taxi RF',
       rating: place.rating || 5,
       totalRatings: place.userRatingCount || 0,
-      googleMapsUri: place.googleMapsUri || 'https://maps.app.goo.gl/buL9ADVXBtMNJ6S4A',
+      googleMapsUri: 'https://maps.app.goo.gl/buL9ADVXBtMNJ6S4A',
       reviews: (place.reviews || []).slice(0, 4).map(r => ({
         author: r.authorAttribution?.displayName || 'Anonyme',
         rating: r.rating || 5,

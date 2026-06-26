@@ -1,10 +1,11 @@
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+import Stripe from 'stripe';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
   const { amount, description, customerEmail, customerName } = req.body;
 
   if (!amount || amount < 1) {
@@ -24,7 +25,7 @@ export default async function handler(req, res) {
               name: 'Taxi RF — Acompte réservation',
               description: description || 'Acompte 30% pour votre trajet',
             },
-            unit_amount: Math.round(amount * 100), // en centimes
+            unit_amount: Math.round(amount * 100),
           },
           quantity: 1,
         },

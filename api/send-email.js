@@ -65,7 +65,7 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify({
           from: 'Taxi RF <contact@taxirf.com>',
-          to: 'contact@taxirf.com',
+          to: 'reservations@taxirf.com',
           subject: '🚖 Nouvelle réservation — ' + prenom + ' ' + nom,
           html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #1A1A1A;">

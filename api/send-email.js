@@ -21,6 +21,7 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify({
           from: 'Taxi RF <contact@taxirf.com>',
+          to: email,
           subject: 'Confirmation de votre réservation — Taxi RF',
           html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #1A1A1A;">
@@ -83,6 +84,83 @@ export default async function handler(req, res) {
                 <p><strong>Heure :</strong> ${heure}</p>
                 <p><strong>Estimation :</strong> ${estimation}</p>
                 <p><strong>Acompte payé :</strong> ${acompte}</p>
+              </div>
+            </div>
+          `
+        })
+      });
+    }
+
+    // Email au client pour une demande avec paiement à bord
+    if (type === 'paiement_bord_client') {
+      await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + apiKey,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from: 'Taxi RF <reservations@taxirf.com>',
+          to: email,
+          subject: 'Demande de réservation reçue — Taxi RF',
+          html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #1A1A1A;">
+              <div style="background: #1A1A1A; padding: 24px; text-align: center;">
+                <h1 style="color: #C9A84C; margin: 0; font-size: 24px;">Taxi RF</h1>
+                <p style="color: rgba(255,255,255,0.7); margin: 8px 0 0;">Demande de réservation</p>
+              </div>
+              <div style="padding: 32px 24px;">
+                <p>Bonjour <strong>${prenom} ${nom}</strong>,</p>
+                <p>Nous avons bien reçu votre demande de réservation avec paiement à bord. La course sera confirmée avec le chauffeur selon les disponibilités.</p>
+                <div style="background: #F5F5F5; border-left: 4px solid #C9A84C; padding: 20px; margin: 20px 0; border-radius: 4px;">
+                  <p style="margin: 0 0 8px;"><strong>Départ :</strong> ${depart}</p>
+                  <p style="margin: 0 0 8px;"><strong>Arrivée :</strong> ${arrivee}</p>
+                  <p style="margin: 0 0 8px;"><strong>Date :</strong> ${date}</p>
+                  <p style="margin: 0 0 8px;"><strong>Heure :</strong> ${heure}</p>
+                  <p style="margin: 0 0 8px;"><strong>Estimation :</strong> ${estimation}</p>
+                  <p style="margin: 0;"><strong>Paiement :</strong> à bord, après confirmation avec le chauffeur</p>
+                </div>
+                <p>Pour toute question, contactez-nous :</p>
+                <p>📞 <a href="tel:+33605717711" style="color: #C9A84C;">06 05 71 77 11</a><br>
+                ✉️ <a href="mailto:contact@taxirf.com" style="color: #C9A84C;">contact@taxirf.com</a></p>
+                <p style="margin-top: 24px;">À bientôt,<br><strong>Taxi RF</strong></p>
+              </div>
+            </div>
+          `
+        })
+      });
+    }
+
+    // Email au chauffeur pour une demande avec paiement à bord
+    if (type === 'paiement_bord_notification') {
+      await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + apiKey,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from: 'Taxi RF <reservations@taxirf.com>',
+          to: 'reservations@taxirf.com',
+          subject: '🚕 Demande paiement à bord — ' + prenom + ' ' + nom,
+          html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #1A1A1A;">
+              <div style="background: #1A1A1A; padding: 24px;">
+                <h1 style="color: #C9A84C; margin: 0; font-size: 20px;">🚕 Demande paiement à bord</h1>
+              </div>
+              <div style="padding: 24px;">
+                <p style="background:#FFF8E1;border-left:4px solid #C9A84C;padding:14px;margin:0 0 20px;">Cette course doit être confirmée avec le chauffeur avant validation définitive.</p>
+                <h2 style="font-size: 16px;">Client</h2>
+                <p><strong>Nom :</strong> ${prenom} ${nom}</p>
+                <p><strong>Téléphone :</strong> <a href="tel:${tel}">${tel}</a></p>
+                <p><strong>Email :</strong> ${email}</p>
+                <h2 style="font-size: 16px; margin-top: 20px;">Trajet</h2>
+                <p><strong>Départ :</strong> ${depart}</p>
+                <p><strong>Arrivée :</strong> ${arrivee}</p>
+                <p><strong>Date :</strong> ${date}</p>
+                <p><strong>Heure :</strong> ${heure}</p>
+                <p><strong>Estimation :</strong> ${estimation}</p>
+                <p><strong>Paiement :</strong> à bord</p>
               </div>
             </div>
           `

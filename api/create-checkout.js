@@ -8,7 +8,7 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Stripe key not configured' });
   }
 
-  const { amount, description, customerEmail, customerName } = req.body;
+  const { amount, description, customerEmail, customerName, nom, prenom, tel, depart, arrivee, date, heure, estimation, acompte } = req.body;
 
   if (!amount || amount < 1) {
     return res.status(400).json({ error: 'Montant invalide' });
@@ -26,7 +26,18 @@ export default async function handler(req, res) {
     params.append('customer_email', customerEmail || '');
     params.append('success_url', 'https://taxirf.com/tarifs-taxi-rf.html?payment=success');
     params.append('cancel_url', 'https://taxirf.com/tarifs-taxi-rf.html?payment=cancel');
-    params.append('metadata[customerName]', customerName || '');
+
+    // Toutes les infos dans metadata pour le webhook
+    params.append('metadata[nom]', nom || '');
+    params.append('metadata[prenom]', prenom || '');
+    params.append('metadata[email]', customerEmail || '');
+    params.append('metadata[tel]', tel || '');
+    params.append('metadata[depart]', depart || '');
+    params.append('metadata[arrivee]', arrivee || '');
+    params.append('metadata[date]', date || '');
+    params.append('metadata[heure]', heure || '');
+    params.append('metadata[estimation]', estimation || '');
+    params.append('metadata[acompte]', acompte || '');
 
     const response = await fetch('https://api.stripe.com/v1/checkout/sessions', {
       method: 'POST',

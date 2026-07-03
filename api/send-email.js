@@ -111,7 +111,7 @@ export default async function handler(req, res) {
               </div>
               <div style="padding: 32px 24px;">
                 <p>Bonjour <strong>${prenom} ${nom}</strong>,</p>
-                <p>Nous avons bien reçu votre demande de réservation avec paiement à bord. La course sera confirmée avec le chauffeur selon les disponibilités.</p>
+                <p>Nous avons bien reçu votre demande de réservation avec paiement à bord. Nous vous recontactons rapidement pour confirmer la course avec le chauffeur.</p>
                 <div style="background: #F5F5F5; border-left: 4px solid #C9A84C; padding: 20px; margin: 20px 0; border-radius: 4px;">
                   <p style="margin: 0 0 8px;"><strong>Départ :</strong> ${depart}</p>
                   <p style="margin: 0 0 8px;"><strong>Arrivée :</strong> ${arrivee}</p>

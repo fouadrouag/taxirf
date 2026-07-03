@@ -25,7 +25,7 @@ export default async function handler(req, res) {
     params.append('line_items[0][price_data][unit_amount]', String(Math.round(amount * 100)));
     params.append('line_items[0][quantity]', '1');
     params.append('customer_email', customerEmail || '');
-    params.append('success_url', `${origin}/tarifs-taxi-rf.html?payment=success`);
+    params.append('success_url', `${origin}/?payment=success`);
     params.append('cancel_url', `${origin}/tarifs-taxi-rf.html?payment=cancel`);
 
     // Toutes les infos dans metadata pour le webhook

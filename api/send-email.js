@@ -8,7 +8,14 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Resend key not configured' });
   }
 
-  const { type, nom, prenom, email, tel, depart, arrivee, date, heure, estimation, acompte } = req.body;
+  const { type, nom, prenom, email, tel, depart, arrivee, date, heure, estimation, acompte, message, lang } = req.body;
+  const escapeHtml = (value = '') => String(value).replace(/[&<>"']/g, char => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[char]));
 
   try {
     // Email au client
@@ -53,6 +60,7 @@ export default async function handler(req, res) {
           `
         })
       });
+
     }
 
     // Email de notification à Fouad
@@ -89,6 +97,7 @@ export default async function handler(req, res) {
           `
         })
       });
+
     }
 
     // Email au client pour une demande avec paiement à bord
@@ -166,6 +175,56 @@ export default async function handler(req, res) {
           `
         })
       });
+
+    }
+
+    // Message envoyé depuis la page contact
+    if (type === 'contact') {
+      if (!nom || !tel || !email || !message) {
+        return res.status(400).json({ error: 'Champs contact manquants' });
+      }
+
+      const isEnglish = lang === 'en';
+      const cleanNom = escapeHtml(nom);
+      const cleanTel = escapeHtml(tel);
+      const cleanEmail = escapeHtml(email);
+      const cleanMessage = escapeHtml(message).replace(/\n/g, '<br>');
+
+      const contactResponse = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + apiKey,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from: 'Taxi RF <contact@taxirf.com>',
+          to: 'contact@taxirf.com',
+          reply_to: email,
+          subject: (isEnglish ? 'Contact message - ' : 'Message contact - ') + nom,
+          html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #1A1A1A;">
+              <div style="background: #1A1A1A; padding: 24px;">
+                <h1 style="color: #C9A84C; margin: 0; font-size: 20px;">${isEnglish ? 'New contact message' : 'Nouveau message contact'}</h1>
+              </div>
+              <div style="padding: 24px;">
+                <h2 style="font-size: 16px;">${isEnglish ? 'Contact' : 'Contact'}</h2>
+                <p><strong>${isEnglish ? 'Name' : 'Nom'} :</strong> ${cleanNom}</p>
+                <p><strong>${isEnglish ? 'Phone' : 'Téléphone'} :</strong> <a href="tel:${cleanTel}">${cleanTel}</a></p>
+                <p><strong>Email :</strong> <a href="mailto:${cleanEmail}">${cleanEmail}</a></p>
+                <h2 style="font-size: 16px; margin-top: 20px;">Message</h2>
+                <div style="background: #F5F5F5; border-left: 4px solid #C9A84C; padding: 16px; border-radius: 4px; line-height: 1.6;">${cleanMessage}</div>
+              </div>
+            </div>
+          `
+        })
+      });
+
+      if (!contactResponse.ok) {
+        const contactError = await contactResponse.json().catch(() => ({}));
+        return res.status(contactResponse.status).json({
+          error: contactError.message || 'Erreur envoi contact'
+        });
+      }
     }
 
     return res.status(200).json({ success: true });
